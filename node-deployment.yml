@@ -1,0 +1,29 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: node
+spec:
+  selector:
+    matchLabels:
+      app: node
+      tier: backend
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: node
+        tier: backend
+    spec:
+      containers:
+        - name: node
+          image: sunilmore690/restex-mongo:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: MONGODB_URI
+              value: "mongodb://mongo:27017/restex-demo1"
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1

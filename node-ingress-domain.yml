@@ -1,0 +1,15 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
+  name: app-host-ingress
+spec:
+  rules:
+  - host: restex.app.com
+    http:
+      paths:
+      - backend:
+          servicePort: 80
+          serviceName: node1
